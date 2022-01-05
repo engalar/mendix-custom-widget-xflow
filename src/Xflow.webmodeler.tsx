@@ -1,23 +1,24 @@
 import { Component, ReactNode, createElement } from "react";
-import { CascaderContainerProps, CascaderPreviewProps } from "../typings/CascaderProps";
+import { XflowContainerProps, XflowPreviewProps } from "../typings/XflowProps";
 
 declare function require(name: string): string;
 
-export class preview extends Component<CascaderPreviewProps> {
+export class preview extends Component<XflowPreviewProps> {
     render(): ReactNode {
         return <div>No preview available</div>;
     }
 }
 
 export function getPreviewCss(): string {
-    return require("./ui/Cascader.scss");
+    return require("./ui/Xflow.scss");
 }
 type VisibilityMap = {
-    [P in keyof CascaderContainerProps]: boolean;
+    [P in keyof XflowContainerProps]: boolean;
 };
 
 
-export function getVisibleProperties(props: CascaderContainerProps, visibilityMap: VisibilityMap): VisibilityMap {
+export function getVisibleProperties(props: XflowContainerProps, visibilityMap: VisibilityMap): VisibilityMap {
+    console.log(props);
     // visibilityMap.nodeConstraint = props.nodeDataSource === "xpath";
     // visibilityMap.nodeGetDataMicroflow = props.nodeDataSource === "microflow";
     // visibilityMap.nodeGetDataNanoflow = props.nodeDataSource === "nanoflow";

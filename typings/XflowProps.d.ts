@@ -1,5 +1,5 @@
 /**
- * This file was generated from Cascader.xml
+ * This file was generated from Xflow.xml
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Team
  */
@@ -18,11 +18,11 @@ interface CommonProps {
     style: string;
 }
 
-export interface CascaderContainerProps extends CommonProps {
+export interface XflowContainerProps extends CommonProps {
     myString: string;
 }
 
-export interface CascaderPreviewProps {
+export interface XflowPreviewProps {
     class: string;
     style: string;
     styleObject: CSSProperties;
