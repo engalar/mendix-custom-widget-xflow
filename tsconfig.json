@@ -7,7 +7,6 @@
       "jest"
     ],
     "resolveJsonModule": true,
-    "experimentalDecorators": true,
     "useDefineForClassFields": true
   }
 }

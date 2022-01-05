@@ -19,14 +19,16 @@ interface CommonProps {
 }
 
 export interface XflowContainerProps extends CommonProps {
-    myString: string;
+    activitys: string;
+    activityLabel: string;
 }
 
 export interface XflowPreviewProps {
     class: string;
     style: string;
     styleObject: CSSProperties;
-    myString: string;
+    activitys: string;
+    activityLabel: string;
 }
 
 export interface VisibilityMap {

@@ -1,4 +1,5 @@
-import { createElement, useMemo } from "react";
+import { useUnmount } from "ahooks";
+import { createElement, useEffect, useMemo } from "react";
 
 
 import { XflowContainerProps } from "../typings/XflowProps";
@@ -23,8 +24,17 @@ const parseStyle = (style = ""): { [key: string]: string } => {
 };
 
 export default function (props: XflowContainerProps) {
-    console.log(props);
-    const store = useMemo(() => new Store(), []);
+    const store = useMemo(() => new Store(props), []);
+
+    useEffect(() => {
+        store.mxOption = props;
+        return () => {
+        }
+    }, [store, props])
+
+    useUnmount(() => {
+        store.dispose();
+    })
 
     return <div style={parseStyle(props.style)}>
         <XflowComponent store={store}></XflowComponent>
