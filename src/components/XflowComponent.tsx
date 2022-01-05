@@ -2,11 +2,10 @@ import { useSize, useUpdateEffect } from "ahooks";
 import { createElement, useEffect, useRef, useState } from "react";
 import { Store } from "../store";
 
-import { Graph } from '@antv/x6'
+import { Edge, Graph, Model, Node } from '@antv/x6'
 
-import jsonData from './bpmn.json';
-import { MDSLayout, Model } from "@antv/layout";
 
+//#region graph register
 Graph.registerNode(
     'event',
     {
@@ -32,10 +31,6 @@ Graph.registerNode(
                 selector: 'body',
             },
             {
-                tagName: 'image',
-                selector: 'img',
-            },
-            {
                 tagName: 'text',
                 selector: 'label',
             },
@@ -48,14 +43,6 @@ Graph.registerNode(
                 fill: '#EFF4FF',
                 strokeWidth: 1,
             },
-            img: {
-                x: 6,
-                y: 6,
-                width: 16,
-                height: 16,
-                'xlink:href':
-                    'https://gw.alipayobjects.com/mdn/rms_43231b/afts/img/A*pwLpRr7QPGwAAAAAAAAAAAAAARQnAQ',
-            },
             label: {
                 fontSize: 12,
                 fill: '#262626',
@@ -65,31 +52,14 @@ Graph.registerNode(
     true,
 )
 
-Graph.registerNode(
-    'gateway',
-    {
-        inherit: 'polygon',
-        attrs: {
-            body: {
-                refPoints: '0,10 10,0 20,10 10,20',
-                strokeWidth: 2,
-                stroke: '#5F95FF',
-                fill: '#EFF4FF',
-            },
-            label: {
-                text: '+',
-                fontSize: 40,
-                fill: '#5F95FF',
-            },
-        },
-    },
-    true,
-)
 
 Graph.registerEdge(
     'bpmn-edge',
     {
         inherit: 'edge',
+        router: {
+            name: 'normal'
+        },
         attrs: {
             line: {
                 stroke: '#A2B1C3',
@@ -100,6 +70,7 @@ Graph.registerEdge(
     true,
 )
 
+//#endregion
 
 export interface XflowComponentProps {
     store: Store;
@@ -123,23 +94,74 @@ export function XflowComponent(props: XflowComponentProps) {
 
         setGraphInstance(graph);
 
-        const data: Model = {
-            nodes: [],
+        const model: Model.FromJSONData = {
+            nodes: [{
+                "id": "start",
+                "shape": "event",
+                "width": 40,
+                "height": 40,
+                "position": {
+                    "x": -20,
+                    "y": -20
+                }
+            },
+            {
+                "id": "end",
+                "shape": "event",
+                "width": 40,
+                "height": 40,
+                "position": {
+                    "x": -20,
+                    "y": -20 + 500
+                },
+                "attrs": {
+                    "body": {
+                        "strokeWidth": 4
+                    }
+                }
+            }],
             edges: [],
-        }
-        jsonData.forEach((item: any) => {
-            if (item.shape === 'bpmn-edge') {
-                data.edges!.push(item)
-            } else {
-                data.nodes!.push(item)
-            }
+        };
+        let edgetId = 0;
+        let nodes: Node.Metadata[] = [];
+        let edges: Edge.Metadata[] = [];
+        [
+            { label: '请假申请', id: 'guid1' },
+            { label: '请假申请2', id: 'guid2' },
+            { label: '请假申请3', id: 'guid3' },
+            { label: '请假申请4', id: 'guid4' },
+            { label: '请假申请5', id: 'guid5' },
+        ].forEach((item: any, idx, array) => {
+            edges.push({
+                "id": `f${edgetId}`,
+                "shape": "bpmn-edge",
+                "source": "start",
+                "target": item.id
+            }, {
+                "id": `t${edgetId}`,
+                "shape": "bpmn-edge",
+                "source": item.id,
+                "target": "end"
+            })
+            edgetId += 1;
+            nodes.push({
+                "id": item.id,
+                "shape": "activity",
+                "width": 100,
+                "height": 60,
+                "position": {
+                    "x": -50 + 120 * (idx - (array.length - 1) / 2),
+                    "y": 220
+                },
+                "label": item.label
+            })
         })
 
-        const layout = new MDSLayout({
-            type: 'mds',
-            linkDistance: 400
-        })
-        const model = layout.layout(data)
+        model.nodes!.splice(0, 0, ...nodes);
+        model.edges!.splice(0, 0, ...edges);
+
+        console.log(model);
+
 
         graph.fromJSON(model)
         graph.zoomToFit({ padding: 10, maxScale: 1 })

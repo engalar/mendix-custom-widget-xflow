@@ -1,35 +1,25 @@
 [
   {
-    "id": "1",
-    "shape": "event",
-    "width": 40,
-    "height": 40,
-    "position": {
-      "x": 50,
-      "y": 180
-    }
-  },
-  {
     "id": "2",
     "shape": "activity",
     "width": 100,
     "height": 60,
     "position": {
-      "x": 20,
-      "y": 280
+      "x": -50,
+      "y": 220
     },
     "label": "请假申请"
   },
   {
     "id": "3",
     "shape": "bpmn-edge",
-    "source": "1",
+    "source": "start",
     "target": "2"
   },
   {
     "id": "5",
     "shape": "bpmn-edge",
-    "source": "1",
+    "source": "start",
     "target": "6"
   },
   {
@@ -38,8 +28,8 @@
     "width": 100,
     "height": 60,
     "position": {
-      "x": 300,
-      "y": 240
+      "x": 70,
+      "y": 220
     },
     "label": "领导审批"
   },
@@ -49,48 +39,33 @@
     "width": 100,
     "height": 60,
     "position": {
-      "x": 300,
-      "y": 320
+      "x": -170,
+      "y": 220
     },
     "label": "人事审批"
   },
   {
     "id": "8",
     "shape": "bpmn-edge",
-    "source": "1",
+    "source": "start",
     "target": "7"
   },
   {
     "id": "9",
     "shape": "bpmn-edge",
     "source": "2",
-    "target": "15"
+    "target": "end"
   },
   {
     "id": "11",
     "shape": "bpmn-edge",
     "source": "6",
-    "target": "15"
+    "target": "end"
   },
   {
     "id": "12",
     "shape": "bpmn-edge",
     "source": "7",
-    "target": "15"
-  },
-  {
-    "id": "15",
-    "shape": "event",
-    "width": 40,
-    "height": 40,
-    "position": {
-      "x": 710,
-      "y": 290
-    },
-    "attrs": {
-      "body": {
-        "strokeWidth": 4
-      }
-    }
+    "target": "end"
   }
 ]
