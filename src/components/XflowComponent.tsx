@@ -79,7 +79,6 @@ export interface XflowComponentProps {
 
 export function XflowComponent(props: XflowComponentProps) {
     const graphRef = useRef<any>();
-    const wrapperRef = useRef<any>();
 
     useEffect(() => {
         const graph: Graph = new Graph({
@@ -166,8 +165,6 @@ export function XflowComponent(props: XflowComponentProps) {
 
     }, []);
 
-    return <div className="mxcn-resize-wrapper" ref={wrapperRef}>
-        <div className="mxcn-resize" ref={graphRef}></div>
-    </div>;
+    return <div className="mxcn-resize" ref={graphRef}></div>;
 }
 
