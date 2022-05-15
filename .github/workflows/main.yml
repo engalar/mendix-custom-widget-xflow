@@ -24,6 +24,10 @@ jobs:
             - uses: actions/checkout@v2
               with:
                   submodules: true
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 14
+                  cache: 'npm'
             - name: Get package info
               id: package
               uses: codex-team/action-nodejs-package-info@v1
@@ -36,7 +40,8 @@ jobs:
                   key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
             - name: Install Dependencies
               run: |
-                  npm i
+                  npm run m
+                  npm ci
                   npm run build
             - name: "Zip testProject"
               run: |

@@ -13,6 +13,7 @@
   },
   "packagePath": "com.mendix.widget.custom",
   "scripts": {
+    "m": "npm install -g rollup prettier eslint",
     "tp": "cmd /c git clone https://gitee.com/engalar/mendix-testproject-800.git --depth=1 ./tests/testProject && shx rm -rf .\\tests\\testProject\\.git",
     "start": "concurrently \"pluggable-widgets-tools start:server --open\" \"npm:dev\"",
     "dev": "pluggable-widgets-tools start:js",
