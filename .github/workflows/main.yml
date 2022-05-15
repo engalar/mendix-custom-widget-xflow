@@ -36,8 +36,7 @@ jobs:
                   key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
             - name: Install Dependencies
               run: |
-                  npm run m
-                  npm run x
+                  npm run i
                   npm run build
             - name: "Zip testProject"
               run: |
