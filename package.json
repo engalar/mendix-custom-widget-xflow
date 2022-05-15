@@ -15,7 +15,7 @@
   "scripts": {
     "x": "npm i --registry=https://registry.npmmirror.com",
     "cnpm": "npm run x",
-    "tp": "cmd /c git clone https://gitee.com/engalar/mendix-testproject-800.git --depth=1 ./tests/testProject && rd /s /q  .\\tests\\testProject\\.git",
+    "tp": "cmd /c git clone https://gitee.com/engalar/mendix-testproject-800.git --depth=1 ./tests/testProject && shx rm -rf .\\tests\\testProject\\.git",
     "start": "concurrently \"pluggable-widgets-tools start:server --open\" \"npm:dev\"",
     "dev": "pluggable-widgets-tools start:js",
     "build": "pluggable-widgets-tools build:js",
@@ -33,7 +33,7 @@
     "openTestProject": "start tests/testProject/testProject.mpr",
     "backupTestProject": "cmd /c (if not exist dummy\\deployment\\data\\database\\hsqldb\\default (mkdir dummy\\deployment\\data\\database\\hsqldb\\default) else (echo skip 1)) && (if not exist dummy\\widgets (mkdir dummy\\widgets) else (echo skip 2)) && copy tests\\testProject\\testProject.mpr dummy\\ /Y && copy tests\\testProject\\deployment\\data\\database\\hsqldb\\default\\default.script dummy\\deployment\\data\\database\\hsqldb\\default\\",
     "postbackupTestProject": "cmd /c copy tests\\testProject\\widgets\\com.mendix.widget.custom.Xflow.mpk dummy\\widgets\\",
-    "restoreTestProject": "cmd /c xcopy dummy tests\\testProject /E /Y"
+    "restoreTestProject": "shx cp -r dummy/* tests/testProject/"
   },
   "license": "Apache-2.0",
   "devDependencies": {
