@@ -28,16 +28,20 @@ jobs:
               with:
                   node-version: 16
                   cache: 'npm'
+            - uses: actions/setup-python@v3
+              with:
+                  python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+                  architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
             - name: Get package info
               id: package
               uses: codex-team/action-nodejs-package-info@v1
-            - name: "Defining cache"
-              uses: actions/cache@v2
-              env:
-                  cache-name: cache-node-modules
-              with:
-                  path: ~/.npm
-                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+            # - name: "Defining cache"
+            #   uses: actions/cache@v2
+            #   env:
+            #       cache-name: cache-node-modules
+            #   with:
+            #       path: ~/.npm
+            #       key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
             - name: Install Dependencies
               run: |
                   npm run m
